@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SKAD</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Times New Roman", serif;
+}
+
+body{
+background:black;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+overflow-y:auto;
+}
+
+/* VIDEO */
+
+#intro{
+width:100%;
+height:auto;
+display:block;
+}
+
+/* POPUP PANEL */
+
+#popup{
+
+width:100%;
+max-width:900px;
+
+margin-top:30px;
+margin-bottom:80px;
+
+padding:40px;
+
+background:linear-gradient(180deg,#a7e4ff,#d8f4ff);
+
+border-radius:30px;
+
+display:none;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+box-shadow:
+0 10px 40px rgba(0,0,0,0.3);
+
+}
+
+/* BUTTON */
+
+#startButton{
+
+padding:16px 80px;
+
+border-radius:60px;
+
+border:none;
+
+background:white;
+
+color:black;
+
+font-size:22px;
+
+font-weight:bold;
+
+letter-spacing:1px;
+
+cursor:pointer;
+
+/* blue glow */
+
+box-shadow:
+0 0 15px #00c6ff,
+0 0 35px #00c6ff,
+0 0 70px #00c6ff;
+
+transition:0.3s;
+
+}
+
+#startButton:hover{
+
+transform:scale(1.08);
+
+box-shadow:
+0 0 25px #00c6ff,
+0 0 60px #00c6ff,
+0 0 120px #00c6ff;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- VIDEO -->
+
+<video id="intro" autoplay muted>
+
+<source src="../assets/LOGO/intro.mp4" type="video/mp4">
+
+</video>
+
+<!-- POPUP PANEL -->
+
+<div id="popup">
+
+<button id="startButton" onclick="goSignup()">
+GET STARTED
+</button>
+
+</div>
+
+<script>
+
+const video = document.getElementById("intro");
+const popup = document.getElementById("popup");
+
+/* show popup when video ends */
+
+video.onended = function(){
+popup.style.display="flex";
+}
+
+function goSignup(){
+window.location.href="signup.html";
+}
+
+</script>
+
+</body>
+
+</html>

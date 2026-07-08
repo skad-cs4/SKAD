@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Syllabus Tracker</title>
+
+<link rel="stylesheet" href="../../css/tools.css">
+
+</head>
+<div id="toastContainer"></div>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Syllabus Tracker</h1>
+        <p>Track completion like a machine 😏</p>
+    </div>
+
+    <!-- SEM -->
+    <div class="form">
+        <select id="semester" onchange="changeSem()">
+            <option value="sem1">Sem 1</option>
+            <option value="sem2">Sem 2</option>
+            <option value="sem3">Sem 3</option>
+            <option value="sem4">Sem 4</option>
+            <option value="sem5">Sem 5</option>
+            <option value="sem6">Sem 6</option>
+        </select>
+    </div>
+
+    <!-- ADD SUBJECT -->
+    <div class="form">
+
+        <input type="text" id="subject" placeholder="Subject Name">
+
+        <select id="type">
+            <option value="theory">Theory</option>
+            <option value="practical">Practical</option>
+        </select>
+
+        <button onclick="addSubject()">Add Subject</button>
+    </div>
+
+    <!-- ADD CHAPTER -->
+    <div class="form">
+
+        <input type="text" id="chapter" placeholder="Chapter Name">
+
+        <button onclick="addChapter()">Add Chapter</button>
+
+    </div>
+
+    <!-- LIST -->
+    <div id="syllabusList" class="list"></div>
+
+    <!-- OVERALL GRAPH -->
+    <div class="progress-box">
+        <canvas id="overallChart"></canvas>
+    </div>
+
+</div>
+
+<script src="../../JS/syllabus.js"></script>
+
+</body>
+</html>

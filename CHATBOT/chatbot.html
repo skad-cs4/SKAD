@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYX AI</title>
+
+    <link rel="stylesheet" href="chatbot.css">
+</head>
+
+<body>
+
+    <div class="chat-container">
+
+        <!-- HEADER -->
+        <div class="chat-header">
+
+            <img src="nyx.jpg" alt="NYX">
+
+            <div>
+                <h1>NYX AI</h1>
+                <p>Academic Assistant</p>
+            </div>
+
+        </div>
+
+        <!-- CHAT AREA -->
+        <div class="chat-box" id="chatBox">
+
+            <div class="bot-message">
+                Hello. I am Nyx. Ask me about teachers, subjects, or semesters.
+            </div>
+
+        </div>
+
+        <!-- INPUT -->
+        <div class="chat-input">
+
+            <input
+                type="text"
+                id="userInput"
+                placeholder="Ask Nyx something..."
+            >
+
+            <button id="sendBtn">Send</button>
+
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="../AI/engine.js"></script>
+    <script src="chatbot.js"></script>
+
+</body>
+
+</html>

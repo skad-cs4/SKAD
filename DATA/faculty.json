@@ -1,0 +1,127 @@
+[
+  {
+    "semester": 1,
+    "subject": "Chemistry",
+    "teacher": "Prachi Shukla"
+  },
+  {
+    "semester": 1,
+    "subject": "Engineering Graphics",
+    "teacher": "Ram"
+  },
+  {
+    "semester": 1,
+    "subject": "Maths I",
+    "teacher": "Narayani Tiwari"
+  },
+  {
+    "semester": 1,
+    "subject": "Communication Skill",
+    "teacher": "Abhisekh Sen"
+  },
+  {
+    "semester": 1,
+    "subject": "Sports and Yoga",
+    "teacher": "Abhisekh Sen"
+  },
+  {
+    "semester": 1,
+    "subject": "Physics",
+    "teacher": "Tiwari"
+  },
+
+  {
+    "semester": 2,
+    "subject": "Maths II",
+    "teacher": "Narayani Tiwari"
+  },
+  {
+    "semester": 2,
+    "subject": "Physics II",
+    "teacher": "Tiwari"
+  },
+  {
+    "semester": 2,
+    "subject": "FEEE",
+    "teacher": "Shankar Sharma"
+  },
+  {
+    "semester": 2,
+    "subject": "Mechanics",
+    "teacher": "Dubey"
+  },
+  {
+    "semester": 2,
+    "subject": "IITs",
+    "teacher": "Jyoti Hanwat"
+  },
+
+  {
+    "semester": 3,
+    "subject": "Computer Programming",
+    "teacher": "Vickky Patil"
+  },
+  {
+    "semester": 3,
+    "subject": "Scripting Language",
+    "teacher": "Jyoti Hanwat"
+  },
+  {
+    "semester": 3,
+    "subject": "Data Structure",
+    "teacher": "Manisha"
+  },
+  {
+    "semester": 3,
+    "subject": "Algorithm",
+    "teacher": "Korov"
+  },
+  {
+    "semester": 3,
+    "subject": "Computer System Organisation",
+    "teacher": "AK Maravi"
+  },
+  {
+    "semester": 3,
+    "subject": "Personality Development",
+    "teacher": "Vickky Patil"
+  },
+
+  {
+    "semester": 4,
+    "subject": "Operating System",
+    "teacher": "AK Maravi"
+  },
+  {
+    "semester": 4,
+    "subject": "Computer Networking",
+    "teacher": "Korov"
+  },
+  {
+    "semester": 4,
+    "subject": "Introduction to DBMS",
+    "teacher": "Vickky Patil"
+  },
+  {
+    "semester": 4,
+    "subject": "Software Engineering",
+    "teacher": "Sarita Gurbele"
+  },
+  {
+    "semester": 4,
+    "subject": "Web Technologies",
+    "teacher": "Manisha"
+  },
+
+  {
+    "semester": 5,
+    "subject": "",
+    "teacher": ""
+  },
+
+  {
+    "semester": 6,
+    "subject": "",
+    "teacher": ""
+  }
+]

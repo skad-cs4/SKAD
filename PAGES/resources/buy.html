@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketplace</title>
+
+<style>
+
+/* ===== BASE ===== */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #020617;
+    color: white;
+    margin: 0;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    padding: 18px;
+    font-size: 22px;
+    background: #0f172a;
+    border-bottom: 1px solid #1e293b;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: #0f172a;
+    border-radius: 12px;
+    border: 1px solid #1e293b;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 260px;
+}
+
+/* IMAGE */
+.card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+/* BODY */
+.card-body {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* TEXT */
+.card-body h4 {
+    font-size: 14px;
+    margin: 0 0 4px;
+}
+
+.price {
+    font-size: 13px;
+    color: #60a5fa;
+}
+
+.card-body p {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 2px 0;
+}
+
+/* BUTTON */
+.btn {
+    margin-top: auto; /* 👈 keeps button visible */
+    padding: 8px;
+    font-size: 13px;
+    border: none;
+    border-radius: 6px;
+    background: #3b82f6;
+    color: white;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #2563eb;
+}
+
+/* MODAL */
+/* MODAL BOX */
+.modal-box {
+    background: #0f172a;
+    padding: 22px;
+    border-radius: 12px;
+    width: 320px;
+    border: 1px solid #1e293b;
+}
+
+/* FORM GROUP */
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    font-size: 12px;
+    color: #94a3b8;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* INPUT */
+.input {
+    width: 100%;
+    padding: 10px;
+    background: #020617;
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+/* BUTTON GROUP */
+.btn-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* BUTTONS */
+.btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.primary {
+    background: #3b82f6;
+    color: white;
+}
+
+.primary:hover {
+    background: #2563eb;
+}
+
+.secondary {
+    background: #1e293b;
+    color: #cbd5f5;
+}
+
+/* TOAST */
+#toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #0f172a;
+    border: 1px solid #3b82f6;
+    padding: 10px;
+    display: none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">Marketplace</div>
+
+<div class="grid" id="items"></div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+    <div class="modal-box">
+
+        <h3>Buyer Details</h3>
+
+        <div class="form-group">
+            <label>Name</label>
+            <input id="buyerName" class="input" placeholder="Enter your name">
+        </div>
+
+        <div class="form-group">
+            <label>Phone</label>
+            <input id="buyerPhone" class="input" placeholder="Enter phone number">
+        </div>
+
+        <div class="form-group">
+            <label>Branch / Semester</label>
+            <input id="buyerBranch" class="input" placeholder="e.g. CSE / Sem 4">
+        </div>
+
+        <div class="btn-group">
+            <button class="btn primary" onclick="confirmBuy()">Confirm</button>
+            <button class="btn secondary" onclick="closeModal()">Cancel</button>
+        </div>
+
+    </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+
+const URL = "https://juhoiuurglcyarecqccd.supabase.co";
+const KEY = "sb_publishable_1OodfzUIF0amgWyqJxYbHQ_cCIYLaVj";
+
+let selectedItem = null;
+
+/* TOAST */
+function toast(msg){
+    const t = document.getElementById("toast");
+    t.innerText = msg;
+    t.style.display = "block";
+    setTimeout(()=>t.style.display="none",2000);
+}
+
+/* LOAD ITEMS */
+async function loadItems(){
+    try {
+        const res = await fetch(`${URL}/rest/v1/items?is_sold=eq.false`,{
+            headers:{
+                apikey:KEY,
+                Authorization:`Bearer ${KEY}`
+            }
+        });
+
+        const data = await res.json();
+        const container = document.getElementById("items");
+
+        container.innerHTML = "";
+
+        if(!data || data.length === 0){
+            container.innerHTML = "<p style='padding:20px;'>No items available</p>";
+            return;
+        }
+
+        data.forEach(item=>{
+            container.innerHTML += `
+            <div class="card">
+                <img src="${item.image}">
+                <div class="card-body">
+                    <h4>${item.title}</h4>
+                    <p class="price">₹${item.price}</p>
+                    <p>${item.branch}</p>
+                    <button class="btn" onclick="openModal(${item.id})">Buy</button>
+                </div>
+            </div>`;
+        });
+
+        window._itemsCache = data;
+
+    } catch (err){
+        console.error(err);
+        toast("Failed to load items ❌");
+    }
+}
+
+/* OPEN MODAL */
+function openModal(id){
+    selectedItem = window._itemsCache.find(i => i.id === id);
+    document.getElementById("modal").style.display = "flex";
+}
+
+/* CLOSE */
+function closeModal(){
+    document.getElementById("modal").style.display = "none";
+    buyerName.value = "";
+    buyerPhone.value = "";
+    buyerBranch.value = "";
+}
+
+/* CONFIRM BUY */
+async function confirmBuy(){
+
+    const name = buyerName.value;
+    const phone = buyerPhone.value;
+    const branch = buyerBranch.value;
+
+    if(!name || !phone){
+        toast("Fill required fields");
+        return;
+    }
+
+    try {
+
+        await fetch(`${URL}/rest/v1/orders`,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+                apikey:KEY,
+                Authorization:`Bearer ${KEY}`
+            },
+            body: JSON.stringify({
+                item_id: selectedItem.id,
+                item_name: selectedItem.title,
+                price: selectedItem.price,
+                seller_phone: selectedItem.phone,
+                buyer_name: name,
+                buyer_phone: phone,
+                buyer_branch: branch
+            })
+        });
+
+        await fetch(`${URL}/rest/v1/items?id=eq.${selectedItem.id}`,{
+            method:"PATCH",
+            headers:{
+                "Content-Type":"application/json",
+                apikey:KEY,
+                Authorization:`Bearer ${KEY}`
+            },
+            body: JSON.stringify({ is_sold:true })
+        });
+
+        toast("Order placed ✅");
+        closeModal();
+        loadItems();
+
+    } catch (err){
+        console.error(err);
+        toast("Error ❌");
+    }
+}
+
+/* INIT */
+loadItems();
+
+</script>
+
+</body>
+</html>

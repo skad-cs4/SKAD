@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Timetable</title>
+
+<link rel="stylesheet" href="../../css/tools.css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="timetable-page">
+
+<div class="header">
+    <h2>Timetable</h2>
+    <button class="edit-btn" id="openBtn">+ Add Class</button>
+</div>
+
+<div class="timetable">
+
+    <!-- TIME COLUMN -->
+    <div class="time-col" id="timeCol"></div>
+
+    <!-- DAYS -->
+    <div class="day" data-day="Mon"></div>
+    <div class="day" data-day="Tue"></div>
+    <div class="day" data-day="Wed"></div>
+    <div class="day" data-day="Thu"></div>
+    <div class="day" data-day="Fri"></div>
+    <div class="day" data-day="Sat"></div>
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal hidden">
+    <div class="modal-box">
+
+        <select id="day">
+            <option value="0">Monday</option>
+            <option value="1">Tuesday</option>
+            <option value="2">Wednesday</option>
+            <option value="3">Thursday</option>
+            <option value="4">Friday</option>
+            <option value="5">Saturday</option>
+        </select>
+
+        <input type="text" id="subject" placeholder="Subject Name">
+
+        <select id="type">
+            <option value="theory">Theory (1 hr)</option>
+            <option value="practical">Practical (2 hr)</option>
+        </select>
+
+        <input type="time" id="start">
+
+        <select id="color">
+            <option value="#6366f1">Indigo</option>
+            <option value="#ec4899">Pink</option>
+            <option value="#22c55e">Green</option>
+            <option value="#f59e0b">Orange</option>
+            <option value="#3b82f6">Blue</option>
+            <option value="#a855f7">Purple</option>
+            <option value="#ef4444">Red</option>
+        </select>
+
+        <div class="modal-actions">
+            <button id="addBtn">Add</button>
+            <button type="button" class="cancel" id="cancelBtn">Cancel</button>
+        </div>
+
+    </div>
+</div>
+
+<div id="toastContainer"></div>
+
+<script src="../../JS/timetable.js"></script>
+
+</body>
+</html>

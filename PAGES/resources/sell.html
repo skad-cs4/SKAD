@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sell Item</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #020617;
+    color: white;
+}
+
+.header {
+    text-align: center;
+    padding: 20px;
+    background: #0f172a;
+    border-bottom: 1px solid #1e293b;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 25px 0;
+}
+
+.tab-btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    background: #1e293b;
+    color: #cbd5f5;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background: #3b82f6;
+    color: white;
+}
+
+.container {
+    max-width: 420px;
+    margin: auto;
+}
+
+.card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.upload-box {
+    border: 2px dashed #1e293b;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.upload-box img {
+    display: none;
+    margin-top: 10px;
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 8px;
+    border: 1px solid #1e293b;
+    background: #020617;
+    color: white;
+}
+
+.btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: #3b82f6;
+    color: white;
+    cursor: pointer;
+}
+
+.item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: #020617;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.delete-btn {
+    margin-left: auto;
+    background: #ef4444;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0f172a;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid #1e293b;
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">Sell Item</div>
+
+<div class="tabs">
+    <button class="tab-btn active" onclick="showTab('upload', this)">Upload</button>
+    <button class="tab-btn" onclick="showTab('myItems', this)">My Items</button>
+</div>
+
+<div class="container">
+
+    <!-- UPLOAD -->
+    <div id="upload" class="card">
+
+        <div class="upload-box" onclick="document.getElementById('image').click()">
+            <p id="uploadText">Click to upload image</p>
+            <input type="file" id="image" hidden accept="image/*">
+            <img id="preview">
+        </div>
+
+        <input type="text" id="title" class="input" placeholder="Item Name">
+        <input type="number" id="price" class="input" placeholder="Price">
+        <input type="text" id="branch" class="input" placeholder="Branch / Semester">
+        <input type="text" id="phone" class="input" placeholder="Phone">
+
+        <button class="btn" onclick="uploadItem()">Upload Item</button>
+
+    </div>
+
+    <!-- MY ITEMS -->
+    <div id="myItems" class="card" style="display:none;">
+        <div id="list"></div>
+    </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+const SUPABASE_URL = "https://juhoiuurglcyarecqccd.supabase.co";
+const SUPABASE_KEY = "sb_publishable_1OodfzUIF0amgWyqJxYbHQ_cCIYLaVj";
+
+const imageInput = document.getElementById("image");
+const preview = document.getElementById("preview");
+const uploadText = document.getElementById("uploadText");
+
+/* TOAST */
+function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.innerText = msg;
+    t.style.display = "block";
+    setTimeout(() => t.style.display = "none", 2000);
+}
+
+/* IMAGE FIX */
+imageInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = "block";
+    uploadText.style.display = "none";
+});
+
+/* TAB FIX */
+function showTab(tab, el) {
+    document.getElementById("upload").style.display = tab === "upload" ? "block" : "none";
+    document.getElementById("myItems").style.display = tab === "myItems" ? "block" : "none";
+
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    el.classList.add("active");
+
+    if (tab === "myItems") loadItems();
+}
+
+/* UPLOAD */
+async function uploadItem() {
+
+    const file = imageInput.files[0];
+    const phone = document.getElementById("phone").value;
+
+    if (!file || !phone) {
+        showToast("Fill required fields");
+        return;
+    }
+
+    localStorage.setItem("sellerPhone", phone);
+
+    const reader = new FileReader();
+
+    reader.onload = async () => {
+        try {
+            const data = {
+                title: title.value,
+                price: price.value,
+                branch: branch.value,
+                phone: phone,
+                image: reader.result,
+                is_sold: false
+            };
+
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/items`, {
+                method: "POST",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${SUPABASE_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!res.ok) {
+    const errorText = await res.text();
+    console.error("SUPABASE ERROR:", errorText);
+    throw new Error(errorText);
+}
+
+            showToast("Item uploaded");
+
+        }catch (err) {
+    console.error(err);
+    showToast("Upload failed ❌");
+}
+    };
+
+    reader.readAsDataURL(file);
+}
+
+/* LOAD MY ITEMS ONLY */
+async function loadItems() {
+
+    const phone = localStorage.getItem("sellerPhone");
+    if (!phone) return;
+
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/items?phone=eq.${phone}`, {
+        headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`
+        }
+    });
+
+    const data = await res.json();
+    const list = document.getElementById("list");
+    list.innerHTML = "";
+
+    data.forEach(item => {
+        list.innerHTML += `
+            <div class="item">
+                <img src="${item.image}">
+                <div>
+                    <div>${item.title}</div>
+                    <div>₹${item.price}</div>
+                </div>
+                <button class="delete-btn" onclick="deleteItem(${item.id})">X</button>
+            </div>
+        `;
+    });
+}
+
+/* DELETE */
+async function deleteItem(id) {
+    await fetch(`${SUPABASE_URL}/rest/v1/items?id=eq.${id}`, {
+        method: "DELETE",
+        headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`
+        }
+    });
+
+    showToast("Item deleted");
+    loadItems();
+}
+
+</script>
+
+</body>
+</html>

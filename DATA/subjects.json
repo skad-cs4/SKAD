@@ -1,0 +1,36 @@
+[
+  {
+    "name": "DBMS",
+    "definition": "DBMS stands for Database Management System. It helps store, organize, and manage data efficiently."
+  },
+
+  {
+    "name": "Operating System",
+    "definition": "An Operating System manages hardware, software, memory, and processes of a computer."
+  },
+
+  {
+    "name": "Computer Networking",
+    "definition": "Computer Networking is the study of communication between connected devices and systems."
+  },
+
+  {
+    "name": "Data Structure",
+    "definition": "A Data Structure is a method of organizing and storing data efficiently."
+  },
+
+  {
+    "name": "Algorithm",
+    "definition": "An Algorithm is a step-by-step procedure used to solve a problem."
+  },
+
+  {
+    "name": "Web Technologies",
+    "definition": "Web Technologies include HTML, CSS, JavaScript, and tools used to build websites."
+  },
+
+  {
+    "name": "Computer Programming",
+    "definition": "Computer Programming is the process of writing instructions for computers using programming languages."
+  }
+]

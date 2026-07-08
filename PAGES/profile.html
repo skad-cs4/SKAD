@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKAD - Profile</title>
+
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar">
+    <div class="logo">SKAD</div>
+
+    <nav>
+        <a href="../DASHBOARD/dashboard.html">Dashboard</a>
+        <a href="#">Notes</a>
+        <a href="#">Faculty</a>
+    </nav>
+
+    <div class="profile-card active">
+        <!-- ✅ IMPORTANT: ID must match dashboard sync -->
+        <img src="../ASSETS/images/user.jpg" alt="User" id="sidebar-pfp">
+
+        <div>
+            <h4 id="sidebar-name">User Name</h4>
+            <p id="sidebar-role">Student</p>
+        </div>
+    </div>
+</aside>
+
+<!-- ================= MAIN ================= -->
+<main class="profile-container">
+
+    <!-- ===== IDENTITY ===== -->
+    <section class="identity">
+
+        <div class="identity-left">
+            <!-- ✅ SAME ID used for syncing -->
+            <img src="../ASSETS/images/user.jpg" class="pfp" id="profile-pfp">
+
+            <input type="file" id="pfpInput" accept="image/*" hidden>
+
+            <button id="uploadPfpBtn">Change Photo</button>
+        </div>
+
+        <div class="identity-right">
+            <h1 id="profile-name">User Name</h1>
+            <span class="role" id="profile-role">Student</span>
+
+            <div class="meta">
+                <span id="profile-branch">CS</span>
+                <span id="profile-sem">Sem 1</span>
+                <span id="profile-medium">English</span>
+            </div>
+
+            <button id="editProfileBtn">Edit Profile</button>
+        </div>
+
+    </section>
+
+
+    <!-- ===== STATS + ACCOUNT ===== -->
+    <section class="middle-section">
+
+        <div class="stats">
+            <h2>Contribution Stats</h2>
+
+            <div class="stat-cards">
+                <div class="card">
+                    <p>Notes Uploaded</p>
+                    <h3 id="notes-count">0</h3>
+                </div>
+
+                <div class="card">
+                    <p>Downloads</p>
+                    <h3 id="downloads-count">0</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="account">
+            <h2>Account Control</h2>
+
+            <button id="editBtn">Edit Profile</button>
+
+            <p>Email: <span id="user-email">user@email.com</span></p>
+
+            <button id="changePasswordBtn">Change Password</button>
+
+            <button class="danger" id="deleteAccountBtn">
+                Delete Account
+            </button>
+        </div>
+
+    </section>
+
+
+    <!-- ===== USER CONTENT ===== -->
+    <section class="content">
+
+        <div class="tabs">
+            <button class="tab active" data-tab="uploaded">Uploaded Notes</button>
+            <button class="tab" data-tab="saved">Saved Notes</button>
+        </div>
+
+        <div class="content-area" id="uploaded">
+            <p>No uploaded notes yet.</p>
+            <button>Upload Notes</button>
+        </div>
+
+        <div class="content-area hidden" id="saved">
+            <p>No saved notes yet.</p>
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= EDIT MODAL ================= -->
+<div class="modal hidden" id="editModal">
+    <div class="modal-content neon-box">
+
+        <h2>Edit Profile</h2>
+
+        <input type="text" id="edit-name" placeholder="Name">
+
+        <select id="edit-role">
+            <option>Student</option>
+            <option>Faculty</option>
+            <option>Developer</option>
+        </select>
+
+        <select id="edit-branch">
+            <option>CS</option>
+            <option>Mechanical</option>
+            <option>Civil</option>
+            <option>Electrical</option>
+        </select>
+
+        <select id="edit-sem">
+            <option>Sem 1</option>
+            <option>Sem 2</option>
+            <option>Sem 3</option>
+            <option>Sem 4</option>
+            <option>Sem 5</option>
+            <option>Sem 6</option>
+        </select>
+
+        <select id="edit-medium">
+            <option>English</option>
+            <option>Hindi</option>
+        </select>
+
+        <div class="modal-actions">
+            <button id="saveProfileBtn">Save</button>
+            <button id="closeModalBtn">Cancel</button>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ================= TOAST (UPDATED) ================= -->
+<div id="toast" class="toast">
+    <p id="toast-msg"></p>
+</div>
+
+<script type="module" src="../JS/profile.js"></script>
+</body>
+</html>

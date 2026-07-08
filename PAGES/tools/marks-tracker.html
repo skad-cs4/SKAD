@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Marks Tracker</title>
+
+<link rel="stylesheet" href="../../css/tools.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Marks Tracker</h1>
+        <p>Track your academic performance</p>
+    </div>
+
+    <!-- SEM SELECT -->
+    <div class="form">
+        <select id="semester" onchange="changeSem()">
+            <option value="sem1">Semester 1</option>
+            <option value="sem2">Semester 2</option>
+            <option value="sem3">Semester 3</option>
+            <option value="sem4">Semester 4</option>
+            <option value="sem5">Semester 5</option>
+            <option value="sem6">Semester 6</option>
+        </select>
+    </div>
+
+    <!-- INPUT FORM -->
+    <div class="form">
+
+        <input type="text" id="subject" placeholder="Subject Name">
+
+        <select id="type" onchange="toggleMidFields()">
+    <option value="theory">📘 Theory</option>
+    <option value="practical">🧪 Practical</option>
+       </select>
+
+        <!-- MID FIELDS -->
+        <div id="midFields" style="display:flex; gap:10px;">
+            <input type="number" id="mid1" placeholder="Mid 1">
+            <input type="number" id="mid2" placeholder="Mid 2">
+        </div>
+
+        <!-- FINAL GRADE -->
+        <select id="final">
+            <option value="A+">A+</option>
+            <option value="A">A</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="PWG">Passed with Grace</option>
+            <option value="F">Fail</option>
+        </select>
+
+        <button onclick="addSubject()">Add</button>
+
+    </div>
+
+    <!-- LIST -->
+    <div id="marksList" class="list"></div>
+
+    <!-- GRAPH -->
+    <div class="progress-box">
+        <canvas id="marksChart"></canvas>
+    </div>
+      
+    <!-- SEMESTER SUMMARY -->
+<div class="summary-box">
+    <h3>Semester Summary</h3>
+    <div id="summaryList" class="summary-list"></div>
+</div>
+
+</div>
+
+<script src="../../JS/marks.js"></script>
+
+</body>
+</html>

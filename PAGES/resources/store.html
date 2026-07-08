@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Store</title>
+
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/modules.css">
+
+<style>
+/* minimal fallback in case CSS doesn't load */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 20px;
+}
+
+.card {
+    background: #0f172a;
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
+    border: 1px solid #1e293b;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    border-color: #3b82f6;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="top-bar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <h2>Store</h2>
+</div>
+
+<div class="grid-2">
+
+    <div class="card" onclick="goToSell()">Sell Item</div>
+    <div class="card" onclick="goToBuy()">Buy Items</div>
+
+</div>
+
+<script>
+
+/* ===== NAVIGATION FIX ===== */
+
+/* Adjust paths based on your folder:
+   current: PAGES/resources/store.html
+   target:  PAGES/resources/sell.html
+*/
+
+function goToSell() {
+    window.location.href = "sell.html";
+}
+
+function goToBuy() {
+    window.location.href = "buy.html";
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+console.log("Faculty page loaded");

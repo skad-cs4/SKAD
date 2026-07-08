@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pomodoro</title>
+
+<link rel="stylesheet" href="../../css/productivity.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="pomodoro">
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <h2 class="heading">Pomodoro</h2>
+    <button class="settings-btn" onclick="toggleSettings()">⚙</button>
+</div>
+
+<!-- MODE -->
+<div class="mode-switch">
+    <button onclick="setMode(1500)">25 / 5</button>
+    <button onclick="setMode(3000)">50 / 10</button>
+    <button onclick="openModal()">Custom</button>
+</div>
+
+<!-- CENTER WRAPPER -->
+<div class="timer-wrapper">
+
+    <div id="timer">25:00</div>
+
+    <div class="controls">
+        <button class="btn start" onclick="startTimer()">Start</button>
+        <button class="btn pause" onclick="pauseTimer()">Pause</button>
+        <button class="btn stop" onclick="resetTimer()">Stop</button>
+    </div>
+
+</div>
+
+<!-- SETTINGS -->
+<div id="settingsPanel" class="settings-panel">
+
+    <h3>Appearance</h3>
+
+    <label>Background</label>
+    <select id="bgSelect" onchange="changeBackground()">
+        <option value="image1.jpg">Nature 1</option>
+        <option value="image2.jpg">Nature 2</option>
+        <option value="image3.jpg">Nature 3</option>
+        <option value="image4.jpg">Nature 4</option>
+        <option value="image5.jpg">Nature 5</option>
+        <option value="image6.jpg">Black</option>
+        <option value="image7.jpg">White</option>
+        <option value="image8.jpg">Blue</option>
+    </select>
+
+    <label>Clock Color</label>
+    <select id="fontColor" onchange="changeFontColor()">
+        <option value="white">White</option>
+        <option value="black">Black</option>
+    </select>
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+    <div class="modal-box">
+        <h3>Custom Timer</h3>
+
+        <input type="number" id="study" placeholder="Study (min)">
+        <input type="number" id="break" placeholder="Break (min)">
+
+        <div class="modal-actions">
+            <button onclick="applyCustom()">OK</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../JS/pomodoro.js"></script>
+</body>
+</html>

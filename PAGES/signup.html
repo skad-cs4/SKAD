@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SKAD Sign Up</title>
+
+<style>
+
+/* PAGE */
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:"Times New Roman", serif;
+color:white;
+background:#050816;
+overflow:hidden;
+}
+
+/* CANVAS BACKGROUND */
+
+#network{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:0;
+}
+
+/* TOAST NOTIFICATION */
+
+#toast{
+position:fixed;
+top:30px;
+left:50%;
+transform:translateX(-50%) translateY(-40px);
+background:rgba(10,20,40,0.95);
+color:white;
+padding:14px 28px;
+border-radius:10px;
+border:1px solid rgba(74,163,255,0.6);
+box-shadow:0 0 15px rgba(74,163,255,0.7);
+font-size:14px;
+opacity:0;
+pointer-events:none;
+transition:0.4s;
+z-index:999;
+}
+
+#toast.show{
+opacity:1;
+transform:translateX(-50%) translateY(0);
+}
+
+/* CARD */
+
+.signup-box{
+position:relative;
+z-index:2;
+width:340px;
+padding:40px;
+text-align:center;
+background:rgba(255,255,255,0.05);
+border-radius:14px;
+box-shadow:0 0 30px rgba(0,120,255,0.4);
+backdrop-filter:blur(10px);
+}
+
+/* TITLE */
+
+.title{
+font-size:28px;
+font-weight:bold;
+margin-bottom:6px;
+}
+
+.title span{
+color:#4aa3ff;
+text-shadow:
+0 0 10px #4aa3ff,
+0 0 25px #4aa3ff,
+0 0 45px #4aa3ff;
+}
+
+/* SUBTITLE */
+
+.subtitle{
+font-size:14px;
+opacity:0.8;
+margin-bottom:28px;
+}
+
+/* INPUTS */
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:8px;
+font-size:15px;
+}
+
+/* PASSWORD BOX */
+
+.password-box{
+position:relative;
+}
+
+.eye{
+position:absolute;
+right:10px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+color:black;
+}
+
+/* BUTTON */
+
+button{
+margin-top:20px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:25px;
+background:white;
+color:black;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 0 12px #4aa3ff;
+transition:0.3s;
+}
+
+button:hover{
+box-shadow:
+0 0 18px #4aa3ff,
+0 0 30px #4aa3ff;
+}
+
+/* LOGIN LINK */
+
+.login-text{
+margin-top:18px;
+font-size:14px;
+}
+
+.login-text a{
+color:#4aa3ff;
+font-weight:bold;
+text-decoration:none;
+}
+
+.login-text a:hover{
+text-decoration:underline;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="network"></canvas>
+
+<div id="toast"></div>
+
+<div class="signup-box">
+
+<div class="title">
+Create your <span>SKAD</span> Account
+</div>
+
+<div class="subtitle">
+Begin your learning journey today
+</div>
+
+<input type="email" id="email" placeholder="Enter Email">
+
+<div class="password-box">
+<input type="password" id="password" placeholder="Enter Password">
+<span class="eye" onclick="togglePassword('password')">👁</span>
+</div>
+
+<div class="password-box">
+<input type="password" id="confirmPassword" placeholder="Re-enter Password">
+<span class="eye" onclick="togglePassword('confirmPassword')">👁</span>
+</div>
+
+<button id="signupBtn">Sign Up</button>
+
+<div class="login-text">
+Already have an account?
+<a href="login.html">Login</a>
+</div>
+
+</div>
+
+<script>
+
+/* TOAST FUNCTION */
+
+function showToast(message){
+
+const toast=document.getElementById("toast");
+
+toast.textContent=message;
+
+toast.classList.add("show");
+
+setTimeout(()=>{
+toast.classList.remove("show");
+},3000);
+
+}
+
+/* PASSWORD TOGGLE */
+
+function togglePassword(id){
+
+const input=document.getElementById(id);
+
+if(input.type==="password"){
+input.type="text";
+}else{
+input.type="password";
+}
+
+}
+
+/* NETWORK ANIMATION */
+
+const canvas=document.getElementById("network");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let nodes=[];
+
+for(let i=0;i<60;i++){
+
+nodes.push({
+
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:(Math.random()-0.5)*0.6,
+vy:(Math.random()-0.5)*0.6
+
+});
+
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+for(let i=0;i<nodes.length;i++){
+
+let n=nodes[i];
+
+n.x+=n.vx;
+n.y+=n.vy;
+
+if(n.x<0||n.x>canvas.width) n.vx*=-1;
+if(n.y<0||n.y>canvas.height) n.vy*=-1;
+
+ctx.beginPath();
+ctx.arc(n.x,n.y,2,0,Math.PI*2);
+ctx.fillStyle="#4aa3ff";
+ctx.fill();
+
+for(let j=i+1;j<nodes.length;j++){
+
+let m=nodes[j];
+
+let dx=n.x-m.x;
+let dy=n.y-m.y;
+
+let dist=Math.sqrt(dx*dx+dy*dy);
+
+if(dist<120){
+
+ctx.beginPath();
+ctx.moveTo(n.x,n.y);
+ctx.lineTo(m.x,m.y);
+
+ctx.strokeStyle="rgba(74,163,255,0.15)";
+ctx.stroke();
+
+}
+
+}
+
+}
+
+requestAnimationFrame(animate);
+
+}
+
+animate();
+
+</script>
+
+
+<script type="module">
+
+import { auth } from "../js/firebase.js";
+
+import { createUserWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+document.getElementById("signupBtn").addEventListener("click",()=>{
+
+const email=document.getElementById("email").value;
+const password=document.getElementById("password").value;
+const confirm=document.getElementById("confirmPassword").value;
+
+if(password!==confirm){
+showToast("Passwords do not match");
+return;
+}
+
+createUserWithEmailAndPassword(auth,email,password)
+
+.then(()=>{
+
+showToast("Account created successfully 🚀");
+
+setTimeout(()=>{
+window.location.href="login.html";
+},1200);
+
+})
+
+.catch((error)=>{
+showToast(error.message);
+});
+
+});
+
+</script>
+
+</body>
+</html>

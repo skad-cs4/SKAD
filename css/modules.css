@@ -1,0 +1,177 @@
+/* ===== RESOURCES PAGE ===== */
+
+.top-bar {
+    background: #0f172a;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #1e293b;
+}
+
+.top-bar h2 {
+    color: #60a5fa;
+}
+
+.resources-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+.resource-card {
+    background: linear-gradient(145deg, #020617, #0f172a);
+    border: 1px solid #1e293b;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+    border-color: #3b82f6;
+}
+
+.resource-card .icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.resource-card h3 {
+    color: #93c5fd;
+    margin-bottom: 10px;
+}
+
+.resource-card p {
+    color: #94a3b8;
+    font-size: 14px;
+}
+/* ===== SYLLABUS PAGE ===== */
+
+.back-btn {
+    position: absolute;
+    left: 20px;
+    top: 18px;
+    background: none;
+    border: none;
+    color: #60a5fa;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.sem-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+.sem-card {
+    background: linear-gradient(145deg, #020617, #0f172a);
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.sem-card:hover {
+    transform: scale(1.05);
+    border-color: #3b82f6;
+}
+
+.sem-card h3 {
+    color: #93c5fd;
+}
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 20px;
+}
+
+.card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #93c5fd;
+    transition: 0.3s;
+}
+
+.card:hover {
+    border-color: #3b82f6;
+    transform: scale(1.03);
+}
+
+.hidden {
+    display: none;
+}
+
+.list {
+    padding: 20px;
+}
+
+.list-item {
+    background: #020617;
+    border: 1px solid #1e293b;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.list-item:hover {
+    border-color: #3b82f6;
+}
+/* ===== NOTES PAGE ===== */
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 20px;
+}
+
+.card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #93c5fd;
+    transition: 0.3s;
+}
+
+.card:hover {
+    border-color: #3b82f6;
+    transform: scale(1.03);
+}
+
+.hidden {
+    display: none;
+}
+
+.section {
+    padding: 20px;
+}
+
+.list-item {
+    background: #020617;
+    border: 1px solid #1e293b;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #e2e8f0;
+    transition: 0.3s;
+}
+
+.list-item:hover {
+    border-color: #3b82f6;
+}

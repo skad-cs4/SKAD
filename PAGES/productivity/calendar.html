@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar</title>
+
+<link rel="stylesheet" href="../../css/productivity.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="calendar">
+
+<div class="calendar-container">
+
+    <!-- HEADER -->
+    <div class="calendar-header">
+        <button class="nav-btn" id="prevBtn">‹</button>
+
+        <div class="month-year">
+            <span id="monthSelect"></span>
+            <span id="yearSelect"></span>
+        </div>
+
+        <button class="nav-btn" id="nextBtn">›</button>
+    </div>
+
+    <!-- DAYS -->
+    <div class="day-names">
+        <div>Mon</div><div>Tue</div><div>Wed</div>
+        <div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
+    </div>
+
+    <!-- GRID -->
+    <div id="calendarGrid" class="calendar-grid"></div>
+
+</div>
+
+<!-- MODAL -->
+<div id="taskModal" class="modal hidden">
+    <div class="modal-box">
+        <h3 id="modalDate"></h3>
+
+        <input id="taskInput" placeholder="Task name">
+
+        <select id="taskColor">
+            <option value="#1e3a8a">Blue Deep</option>
+            <option value="#2563eb">Blue</option>
+            <option value="#3b82f6">Light Blue</option>
+            <option value="#22c55e">Green</option>
+            <option value="#f59e0b">Amber</option>
+            <option value="#ef4444">Red</option>
+        </select>
+
+        <button id="addTaskBtn">Add Task</button>
+        <button id="cancelBtn">Cancel</button>
+    </div>
+</div>
+
+<script src="../../JS/calendar.js"></script>
+</body>
+</html>

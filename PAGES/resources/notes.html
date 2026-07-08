@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/modules.css">
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <button class="back-btn" onclick="goBack()">←</button>
+        <h2>Notes</h2>
+    </div>
+
+    <!-- SEM SECTION -->
+    <div id="sem-section" class="grid-2">
+        <div class="card" onclick="loadSubjects(1)">Semester 1</div>
+        <div class="card" onclick="loadSubjects(2)">Semester 2</div>
+        <div class="card" onclick="loadSubjects(3)">Semester 3</div>
+        <div class="card" onclick="loadSubjects(4)">Semester 4</div>
+        <div class="card" onclick="loadSubjects(5)">Semester 5</div>
+        <div class="card" onclick="loadSubjects(6)">Semester 6</div>
+    </div>
+
+    <!-- SUBJECT SECTION -->
+    <div id="subject-section" class="hidden"></div>
+
+    <!-- PDF SECTION -->
+    <div id="pdf-section" class="hidden"></div>
+
+    <script src="../../JS/resources.js"></script>
+
+</body>
+</html>

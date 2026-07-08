@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Assignment Tracker</title>
+
+<link rel="stylesheet" href="../../css/tools.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Assignments</h1>
+        <p>Track your deadlines like a pro</p>
+    </div>
+
+    <!-- FORM -->
+    <div class="form">
+        <input type="text" id="title" placeholder="Assignment Name">
+        <input type="text" id="topic" placeholder="Topic">
+        <input type="date" id="date">
+
+        <!-- 10 COLOR OPTIONS -->
+        <select id="color">
+            <option value="#ef4444">Red</option>
+            <option value="#3b82f6">Blue</option>
+            <option value="#22c55e">Green</option>
+            <option value="#eab308">Yellow</option>
+            <option value="#a855f7">Purple</option>
+            <option value="#ec4899">Pink</option>
+            <option value="#14b8a6">Teal</option>
+            <option value="#f97316">Orange</option>
+            <option value="#6366f1">Indigo</option>
+            <option value="#10b981">Emerald</option>
+        </select>
+
+        <button onclick="addAssignment()">Add</button>
+    </div>
+
+    <!-- LIST -->
+    <div id="list" class="list"></div>
+
+    <!-- PROGRESS -->
+    <div class="progress-box">
+        <canvas id="chart"></canvas>
+    </div>
+
+</div>
+
+<script src="../../JS/assignment.js"></script>
+
+</body>
+</html>
