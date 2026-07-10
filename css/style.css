@@ -106,3 +106,41 @@ transform:translateX(-50%) translateY(0);
 .buy-btn:hover {
     background: #2563eb;
 }
+/* ---------- MOBILE ---------- */
+
+@media (max-width:768px){
+
+.login-box{
+
+width:90%;
+max-width:360px;
+
+padding:28px;
+
+}
+
+.login-box h2{
+
+font-size:28px;
+
+margin-bottom:22px;
+
+}
+
+input{
+
+font-size:16px;
+
+padding:14px;
+
+}
+
+button{
+
+padding:14px;
+
+font-size:16px;
+
+}
+
+}
