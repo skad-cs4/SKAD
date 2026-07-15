@@ -3,14 +3,14 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SKAD Dashboard</title>
+    <title>SKAD Dashboard</title>
 
-<link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="dashboard.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 </head>
 
@@ -18,308 +18,292 @@
 
 <header class="navbar">
 
-<div class="nav-left">
+    <div class="nav-left">
 
-<button id="menu-toggle">
-<span></span>
-<span></span>
-<span></span>
-</button>
+        <button id="menu-toggle">
 
-<h2 class="logo">SKAD</h2>
+            <span></span>
+            <span></span>
+            <span></span>
 
-</div>
+        </button>
 
-<nav class="nav-links">
+        <h2 class="logo">
+            SKAD
+        </h2>
 
-<a href="../index.html" class="active">
-Home
-</a>
+    </div>
 
-<a href="../PAGES/resources/syllabus.html">
-Syllabus
-</a>
+    <nav class="nav-links">
 
-</nav>
+        <a href="../index.html" class="active">
+            Home
+        </a>
 
-<div class="nav-right">
+        <a href="../PAGES/resources/syllabus.html">
+            Syllabus
+        </a>
 
-<button id="mode-toggle">
-🌙
-</button>
+    </nav>
 
-<button id="logout-btn">
-Logout
-</button>
+    <div class="nav-right">
 
-</div>
+        <button id="mode-toggle">
+            🌙
+        </button>
+
+        <button id="logout-btn">
+            Logout
+        </button>
+
+    </div>
 
 </header>
 
 <div class="container">
 
-<!-- Sidebar -->
+<!-- ================= SIDEBAR ================= -->
 
 <aside class="sidebar" id="sidebar">
 
-<a href="../PAGES/profile.html" class="profile-card">
+    <a href="../PAGES/profile.html" class="profile-card">
 
-<img
-src="../assets/images/user.jpg"
-id="dashboard-pfp"
-class="avatar"
-alt="Profile"
->
+        <img
+            src="../assets/images/user.jpg"
+            id="dashboard-pfp"
+            class="avatar"
+            alt="User Profile"
+        >
 
-<div class="profile-info">
+        <div class="profile-info">
 
-<h3 id="username">
-User Name
-</h3>
+            <h3 id="username">
+                User Name
+            </h3>
 
-<p id="branch">
-Branch
-</p>
+            <p id="branch">
+                Branch
+            </p>
 
-</div>
+        </div>
 
-</a>
+    </a>
 
-<nav class="sidebar-menu">
+    <nav class="sidebar-menu">
 
-<a href="#" class="active">
-Dashboard
-</a>
+        <a href="#" class="active">
+            Dashboard
+        </a>
 
-<a href="../PAGES/resources/index.html">
-Resources
-</a>
+        <a href="../PAGES/resources/index.html">
+            Resources
+        </a>
 
-<a href="../PAGES/productivity/index.html">
-Productivity
-</a>
+        <a href="../PAGES/productivity/index.html">
+            Productivity
+        </a>
 
-<a href="../PAGES/tools/index.html">
-Tools
-</a>
+        <a href="../PAGES/tools/index.html">
+            Tools
+        </a>
 
-<a href="../PAGES/faculty/index.html">
-Faculty
-</a>
+        <a href="../PAGES/faculty/index.html">
+            Faculty
+        </a>
 
-<a href="../PAGES/gallery/index.html">
-Gallery
-</a>
+        <a href="../PAGES/about/index.html">
+            Developer
+        </a>
 
-<a href="../PAGES/about/index.html">
-Developer
-</a>
+        <a href="../CHATBOT/chatbot.html">
+            NYX AI
+        </a>
 
-<a href="../CHATBOT/chatbot.html">
-AI
-</a>
-
-</nav>
+    </nav>
 
 </aside>
 
-<!-- Main -->
+<!-- ================= MAIN CONTENT ================= -->
 
 <main class="main-content">
 
-<!-- Widgets -->
+<!-- ================= TOP WIDGETS ================= -->
 
 <section class="top-widgets">
 
-<a href="../PAGES/productivity/calendar.html" class="card widget-card">
+    <a href="../PAGES/productivity/calendar.html" class="card widget-card">
 
-<p class="widget-title">
-📅 Calendar
-</p>
+        <p class="widget-title">
+            📅 Calendar
+        </p>
 
-<h2 id="current-date">
-Loading...
-</h2>
+        <h2 id="current-date">
+            Loading...
+        </h2>
 
-<span class="widget-subtext">
-Today's Date
-</span>
+        <span class="widget-subtext">
+            Today's Date
+        </span>
 
-</a>
+    </a>
 
-<a href="../PAGES/tools/timetable.html" class="card widget-card">
+    <a href="../PAGES/tools/timetable.html" class="card widget-card">
 
-<p class="widget-title">
-🗓 Next Class
-</p>
+        <p class="widget-title">
+            🗓 Next Class
+        </p>
 
-<h2 id="next-class">
---
-</h2>
+        <h2 id="next-class">
+            --
+        </h2>
 
-<span class="widget-subtext">
-Timetable
-</span>
+        <span class="widget-subtext">
+            Timetable Synced
+        </span>
 
-</a>
+    </a>
 
-<a href="../PAGES/tools/assignment.html" class="card widget-card">
+    <a href="../PAGES/tools/assignment.html" class="card widget-card">
 
-<p class="widget-title">
-📌 Assignments
-</p>
+        <p class="widget-title">
+            📌 Assignments
+        </p>
 
-<h2 id="assignment-count">
-0
-</h2>
+        <h2 id="assignment-count">
+            0
+        </h2>
 
-<span class="widget-subtext">
-Pending
-</span>
+        <span class="widget-subtext">
+            Pending Submissions
+        </span>
 
-</a>
+    </a>
 
 </section>
 
-<!-- AI -->
+<!-- ================= NYX AI ================= -->
 
 <section class="ai-section">
 
-<div class="ai-card">
+    <div class="ai-card">
 
-<h3>
-NYX Assistant
-</h3>
+        <h3>
+            NYX AI Assistant
+        </h3>
 
-<div class="ai-output" id="ai-output">
+        <div class="ai-output" id="ai-output">
 
-<div class="ai-placeholder">
+            <div class="ai-placeholder">
 
-<h4>
-👋 Hello!
-</h4>
+                <h4>
+                    Hello 👋
+                </h4>
 
-<p>
+                <p>
+                    Ask me anything about SKAD, faculty, semesters,
+                    subjects or resources.
+                </p>
 
-Ask anything about SKAD,
-faculty,
-resources,
-syllabus,
-or productivity.
+            </div>
 
-</p>
+        </div>
 
-</div>
+        <div class="ai-input">
 
-</div>
+            <input
+                type="text"
+                id="dashboard-ai-input"
+                placeholder="Ask NYX..."
+            >
 
-<div class="ai-input">
+            <button id="ai-send">
+                Send
+            </button>
 
-<input
-type="text"
-id="ai-input"
-placeholder="Ask Nyx..."
-autocomplete="off"
->
+            <a
+                href="../CHATBOT/chatbot.html"
+                class="see-more-btn"
+                title="Open Full Chat"
+            >
+                ↗
+            </a>
 
-<button id="ai-send">
-Send
-</button>
+        </div>
 
-</div>
-
-</div>
+    </div>
 
 </section>
 
-<!-- Productivity -->
+<!-- ================= PRODUCTIVITY ================= -->
 
 <section class="resources-section">
 
-<div class="faculty-header">
+    <h2>
+        Productivity
+    </h2>
 
-<h2>
-Productivity
-</h2>
+    <div class="resource-cards">
 
-<a
-href="../PAGES/productivity/index.html"
-class="see-more-btn">
-→
-</a>
+        <a
+            href="../PAGES/productivity/pomodoro.html"
+            class="card"
+        >
+            ⏱ Pomodoro
+        </a>
 
-</div>
+        <a
+            href="../PAGES/tools/syllabus-tracker.html"
+            class="card"
+        >
 
-<div class="resource-cards">
+            <p class="widget-title">
+                📊 Syllabus Progress
+            </p>
 
-<a href="../PAGES/productivity/pomodoro.html" class="card">
+            <h2 id="syllabus-progress">
+                0%
+            </h2>
 
-⏱
+        </a>
 
-<h3>
-Pomodoro
-</h3>
-
-<p>
-Stay focused
-</p>
-
-</a>
-
-<a href="../PAGES/tools/syllabus-tracker.html" class="card">
-
-📊
-
-<h3>
-Progress
-</h3>
-
-<h2 id="syllabus-progress">
-0%
-</h2>
-
-</a>
-
-</div>
+    </div>
 
 </section>
 
-<!-- Faculty -->
+<!-- ================= FACULTY ================= -->
 
 <section class="faculty-section">
 
-<div class="faculty-header">
+    <div class="faculty-header">
 
-<h2>
-Faculty
-</h2>
+        <h2>
+            Faculty
+        </h2>
 
-<a
-href="../PAGES/faculty/index.html"
-class="see-more-btn">
-→
-</a>
+        <a
+            href="../PAGES/faculty/index.html"
+            class="see-more-btn"
+        >
+            →
+        </a>
 
-</div>
+    </div>
 
-<div
-class="faculty-list"
-id="faculty-list">
-</div>
+    <div
+        class="faculty-list"
+        id="faculty-list"
+    >
 
-<p
-class="empty-text"
-id="faculty-empty">
+        <!-- dashboard.js inserts faculty cards -->
 
-No faculty data available
-
-</p>
+    </div>
 
 </section>
-
 </main>
 
 </div>
+
+<!-- ================= DASHBOARD SCRIPT ================= -->
 
 <script type="module" src="dashboard.js"></script>
 
