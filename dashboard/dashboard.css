@@ -359,3 +359,130 @@ body.dark-mode .ai-output {
 
   text-decoration: none;
 }
+/* ================= MOBILE ================= */
+
+@media (max-width:768px){
+
+.container{
+
+display:block;
+
+}
+
+/* Sidebar */
+
+.sidebar{
+
+position:fixed;
+
+left:-260px;
+
+top:70px;
+
+width:240px;
+
+height:calc(100vh - 70px);
+
+transition:.3s;
+
+z-index:1000;
+
+overflow-y:auto;
+
+}
+
+.sidebar.active{
+
+left:0;
+
+}
+
+/* Navbar */
+
+.navbar{
+
+padding:12px 18px;
+
+}
+
+.logo{
+
+font-size:26px;
+
+}
+
+.nav-links{
+
+display:none;
+
+}
+
+.nav-right{
+
+gap:8px;
+
+}
+
+/* Main */
+
+.main-content{
+
+margin-left:0;
+
+padding:18px;
+
+}
+
+/* Cards */
+
+.top-widgets{
+
+grid-template-columns:1fr;
+
+gap:18px;
+
+}
+
+.resource-cards{
+
+grid-template-columns:1fr;
+
+}
+
+.widget-card{
+
+min-height:130px;
+
+}
+
+/* AI */
+
+.ai-card{
+
+padding:18px;
+
+}
+
+.ai-output{
+
+height:170px;
+
+}
+
+/* Faculty */
+
+.faculty-list{
+
+grid-template-columns:1fr;
+
+}
+
+/* Profile */
+
+.profile-card{
+
+padding:14px;
+
+}
+
+}

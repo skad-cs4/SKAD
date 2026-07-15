@@ -75,11 +75,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ================= SIDEBAR =================
-  document.getElementById("menu-toggle").onclick = () => {
+const menuToggle = document.getElementById("menu-toggle");
 
+menuToggle.onclick = () => {
+
+  if (window.innerWidth <= 768) {
+
+    // Mobile sidebar
+    sidebar.classList.toggle("active");
+
+  } else {
+
+    // Desktop sidebar
     sidebar.classList.toggle("collapsed");
 
-  };
+  }
+
+};
+
+
+// Close sidebar after clicking a menu item on mobile
+document.querySelectorAll(".sidebar-menu a").forEach(link => {
+
+  link.addEventListener("click", () => {
+
+    if (window.innerWidth <= 768) {
+
+      sidebar.classList.remove("active");
+
+    }
+
+  });
+
+});
+
+
+// Close sidebar when screen becomes desktop size
+window.addEventListener("resize", () => {
+
+  if (window.innerWidth > 768) {
+
+    sidebar.classList.remove("active");
+
+  }
+
+});
 
 
   // ================= DARK MODE =================

@@ -3,6 +3,7 @@
 
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SKAD Login</title>
 
 <style>
@@ -17,13 +18,21 @@ font-family:Segoe UI,Arial;
 }
 
 body{
-height:100vh;
+
+min-height:100dvh;
+
 display:flex;
 justify-content:center;
 align-items:center;
+
 background:#020617;
-color:white;
+
 overflow:hidden;
+
+padding:20px;
+
+position:relative;
+
 }
 
 
@@ -65,18 +74,17 @@ opacity:.4;
 
 .login-box{
 
-width:min(90vw,340px);
+width:min(90vw,380px);
+min-width:280px;
+
 padding:32px;
 
 border-radius:18px;
 
-background:rgba(255,255,255,0.05);
-
+background:rgba(255,255,255,.05);
 backdrop-filter:blur(15px);
-
-border:1px solid rgba(255,255,255,0.1);
-
-box-shadow:0 20px 40px rgba(0,0,0,0.7);
+border:1px solid rgba(255,255,255,.1);
+box-shadow:0 20px 40px rgba(0,0,0,.7);
 
 text-align:center;
 
@@ -231,7 +239,6 @@ text-decoration:none;
 margin-top:12px;
 }
 
-
 /* ---------- TOAST MESSAGE ---------- */
 
 #toast{
@@ -266,14 +273,57 @@ z-index:999;
 }
 
 #toast.show{
+
 opacity:1;
 transform:translateX(-50%) translateY(0);
+
 }
+
+
+/* ---------- MOBILE RESPONSIVE ---------- */
+
+@media (max-width:768px){
+
+body{
+
+padding:24px;
+
+}
+
+.login-box{
+
+width:92vw;
+max-width:360px;
+padding:26px;
+
+}
+
+.login-box h2{
+
+font-size:28px;
+
+}
+
+input{
+
+padding:14px;
+font-size:16px;
+
+}
+
+button{
+
+padding:14px;
+font-size:16px;
+
+}
+
+}
+
 
 </style>
 
 </head>
-
 
 <body>
 
@@ -284,31 +334,45 @@ transform:translateX(-50%) translateY(0);
 
 <div id="toast"></div>
 
-
 <div class="login-box">
 
 <h2>SKAD Login</h2>
 
 <form id="loginForm">
 
-<input type="email" id="email" placeholder="Email" required>
+<input
+type="email"
+id="email"
+placeholder="Email"
+required
+>
 
-<input type="password" id="password" placeholder="Password" required>
+<input
+type="password"
+id="password"
+placeholder="Password"
+required
+>
 
-<a href="#" id="forgotPassword">Forgot your password?</a>
+<a href="#" id="forgotPassword">
+Forgot your password?
+</a>
 
 <br><br>
 
-<button type="submit">Login</button>
+<button type="submit">
+Login
+</button>
 
 <div class="signup">
-<a href="signup.html">Create Account</a>
+<a href="signup.html">
+Create Account
+</a>
 </div>
 
 </form>
 
 </div>
-
 
 <script>
 
@@ -323,7 +387,9 @@ toast.textContent=message;
 toast.classList.add("show");
 
 setTimeout(()=>{
+
 toast.classList.remove("show");
+
 },3000);
 
 }
@@ -401,8 +467,20 @@ requestAnimationFrame(animate);
 
 animate();
 
-</script>
 
+function resizeCanvas(){
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+}
+
+resizeCanvas();
+
+window.addEventListener("resize", resizeCanvas);
+window.addEventListener("orientationchange", resizeCanvas);
+
+</script>
 
 <script type="module">
 
@@ -449,14 +527,25 @@ document.getElementById("forgotPassword").addEventListener("click",()=>{
 const email=document.getElementById("email").value;
 
 if(!email){
+
 showToast("Enter your email first");
 return;
+
 }
 
 sendPasswordResetEmail(auth,email)
 
-.then(()=>showToast("Password reset email sent ✔"))
-.catch((error)=>showToast(error.message));
+.then(()=>{
+
+showToast("Password reset email sent ✔");
+
+})
+
+.catch((error)=>{
+
+showToast(error.message);
+
+});
 
 });
 
