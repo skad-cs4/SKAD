@@ -1,4 +1,5 @@
 import { auth, db } from "../JS/firebase.js";
+import { getResponse } from "../AI/engine.js";
 
 import {
   onAuthStateChanged,
@@ -9,7 +10,6 @@ import {
   doc,
   getDoc
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -22,44 +22,54 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentDateEl = document.getElementById("current-date");
   const syllabusProgressEl = document.getElementById("syllabus-progress");
 
+  /* ================= AUTH ================= */
 
-  // ================= AUTH =================
   onAuthStateChanged(auth, async (user) => {
 
     if (!user) {
+
       window.location.href = "../PAGES/login.html";
       return;
-    }
-
-    // FIRESTORE USER DATA
-    const userRef = doc(db, "users", user.uid);
-
-    const snap = await getDoc(userRef);
-
-    if (snap.exists()) {
-
-      const data = snap.data();
-
-      usernameEl.textContent = data.name || "User";
-      branchEl.textContent = data.branch || "Branch";
-
-    } else {
-
-      usernameEl.textContent = "User";
 
     }
 
-    // PROFILE IMAGE
+    try{
+
+      const userRef = doc(db, "users", user.uid);
+      const snap = await getDoc(userRef);
+
+      if (snap.exists()) {
+
+        const data = snap.data();
+
+        usernameEl.textContent = data.name || "User";
+        branchEl.textContent = data.branch || "Branch";
+
+      } else {
+
+        usernameEl.textContent = "User";
+        branchEl.textContent = "";
+
+      }
+
+    }catch(error){
+
+      console.error(error);
+
+    }
+
     const savedPfp = localStorage.getItem("skadPfp");
 
-    if (savedPfp && pfpEl) {
+    if(savedPfp){
+
       pfpEl.src = savedPfp;
+
     }
 
   });
 
+  /* ================= LOGOUT ================= */
 
-  // ================= LOGOUT =================
   document.getElementById("logout-btn").onclick = () => {
 
     signOut(auth).then(() => {
@@ -67,39 +77,64 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.removeItem("skadUser");
       localStorage.removeItem("skadPfp");
 
-      window.location.href = "../PAGES/login.html";
+      window.location.replace("../PAGES/login.html");
 
     });
 
   };
 
+  /* ================= MOBILE SIDEBAR ================= */
 
-  // ================= SIDEBAR =================
-const menuToggle = document.getElementById("menu-toggle");
+  const menuToggle = document.getElementById("menu-toggle");
 
-menuToggle.onclick = () => {
+  menuToggle.onclick = () => {
 
-  if (window.innerWidth <= 768) {
+    if(window.innerWidth <= 768){
 
-    // Mobile sidebar
-    sidebar.classList.toggle("active");
+      sidebar.classList.toggle("active");
 
-  } else {
+    }else{
 
-    // Desktop sidebar
-    sidebar.classList.toggle("collapsed");
+      sidebar.classList.toggle("collapsed");
 
-  }
+    }
 
-};
+  };
 
+  document.querySelectorAll(".sidebar-menu a").forEach(link=>{
 
-// Close sidebar after clicking a menu item on mobile
-document.querySelectorAll(".sidebar-menu a").forEach(link => {
+    link.addEventListener("click",()=>{
 
-  link.addEventListener("click", () => {
+      if(window.innerWidth<=768){
 
-    if (window.innerWidth <= 768) {
+        sidebar.classList.remove("active");
+
+      }
+
+    });
+
+  });
+
+  document.addEventListener("click",(e)=>{
+
+    if(window.innerWidth<=768){
+
+      if(
+        !sidebar.contains(e.target) &&
+        !menuToggle.contains(e.target)
+      ){
+
+        sidebar.classList.remove("active");
+
+      }
+
+    }
+
+  });
+
+  window.addEventListener("resize",()=>{
+
+    if(window.innerWidth>768){
 
       sidebar.classList.remove("active");
 
@@ -107,71 +142,82 @@ document.querySelectorAll(".sidebar-menu a").forEach(link => {
 
   });
 
-});
+  /* ================= DARK MODE ================= */
 
+  const modeToggle = document.getElementById("mode-toggle");
 
-// Close sidebar when screen becomes desktop size
-window.addEventListener("resize", () => {
+  if(localStorage.getItem("theme")==="dark"){
 
-  if (window.innerWidth > 768) {
-
-    sidebar.classList.remove("active");
+    document.body.classList.add("dark-mode");
+    modeToggle.textContent="☀️";
 
   }
 
-});
-
-
-  // ================= DARK MODE =================
-  const modeToggle = document.getElementById("mode-toggle");
-
-  modeToggle.onclick = () => {
+  modeToggle.onclick=()=>{
 
     document.body.classList.toggle("dark-mode");
 
-    const isDark = document.body.classList.contains("dark-mode");
+    const dark=document.body.classList.contains("dark-mode");
 
-    localStorage.setItem(
-      "theme",
-      isDark ? "dark" : "light"
-    );
+    localStorage.setItem("theme",dark?"dark":"light");
 
-    modeToggle.textContent = isDark ? "☀️" : "🌙";
+    modeToggle.textContent=dark?"☀️":"🌙";
 
   };
 
-  // LOAD THEME
-  if (localStorage.getItem("theme") === "dark") {
+  /* ================= DATE ================= */
 
-    document.body.classList.add("dark-mode");
+  const today=new Date();
 
-    modeToggle.textContent = "☀️";
+  currentDateEl.textContent=today.toLocaleDateString("en-US",{
+
+    month:"short",
+    day:"numeric"
+
+  });
+
+  /* ================= SYLLABUS ================= */
+
+  syllabusProgressEl.textContent="0%";
+
+  /* ================= AI ================= */
+
+  const aiInput=document.getElementById("ai-input");
+  const aiOutput=document.getElementById("ai-output");
+  const aiSend=document.getElementById("ai-send");
+
+  function sendMessage(){
+
+    const message=aiInput.value.trim();
+
+    if(!message) return;
+
+    aiOutput.innerHTML += `
+      <div class="user-message">${message}</div>
+    `;
+
+    const reply=getResponse(message);
+
+    aiOutput.innerHTML += `
+      <div class="bot-message">${reply}</div>
+    `;
+
+    aiInput.value="";
+
+    aiOutput.scrollTop=aiOutput.scrollHeight;
 
   }
 
+  aiSend.onclick=sendMessage;
 
-  // ================= DATE =================
-  const today = new Date();
+  aiInput.addEventListener("keypress",(e)=>{
 
-  const formattedDate = today.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric"
+    if(e.key==="Enter"){
+
+      sendMessage();
+
+    }
+
   });
-
-  currentDateEl.textContent = formattedDate;
-
-
-  // ================= SYLLABUS =================
-  const progress = 0;
-
-  syllabusProgressEl.textContent = `${progress}%`;
-
-
-  // ================= AI =================
-  document.getElementById("ai-send").onclick = () => {
-
-    alert("AI not connected yet.");
-
-  };
 
 });
