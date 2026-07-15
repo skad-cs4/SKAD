@@ -812,9 +812,13 @@ display:none;
 }
 
 .nav-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
 
-gap:8px;
-
+#logout-btn{
+    display:block;
 }
 
 #logout-btn{
@@ -847,23 +851,22 @@ display:block;
 .sidebar{
 
 position:fixed;
-
 top:65px;
-left:-260px;
+left:-250px;
 
 width:240px;
 
 height:calc(100vh - 65px);
 
-padding:20px;
+transition:.3s;
 
-overflow-y:auto;
+z-index:1000;
 
-z-index:999;
+}
 
-box-shadow:10px 0 25px rgba(0,0,0,.25);
+.sidebar.active{
 
-transition:left .3s ease;
+left:0;
 
 }
 
@@ -1080,6 +1083,83 @@ font-size:20px;
 #logout-btn{
 
 display:none;
+
+}
+
+}
+.faculty-card{
+    width:120px;
+    text-decoration:none;
+    color:inherit;
+    text-align:center;
+    background:white;
+    border-radius:14px;
+    padding:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+    transition:.25s;
+}
+
+.faculty-card:hover{
+    transform:translateY(-4px);
+}
+
+.faculty-card img{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:10px;
+}
+
+body.dark-mode .faculty-card{
+    background:#132F52;
+    color:white;
+}
+
+
+body.dark-mode .navbar{
+
+background:#0f172a;
+
+}
+
+body.dark-mode .sidebar{
+
+background:#132f52;
+
+}
+
+body.dark-mode .card{
+
+background:#132f52;
+color:white;
+
+}
+
+@media(max-width:768px){
+
+.navbar{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:12px;
+
+}
+
+.nav-right{
+
+display:flex;
+align-items:center;
+gap:8px;
+
+}
+
+#logout-btn{
+
+padding:8px 12px;
+font-size:13px;
 
 }
 

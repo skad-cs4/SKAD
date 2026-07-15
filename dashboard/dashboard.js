@@ -1,5 +1,4 @@
 import { auth, db } from "../JS/firebase.js";
-import { getResponse } from "../AI/engine.js";
 
 import {
   onAuthStateChanged,
@@ -13,211 +12,203 @@ import {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  const sidebar = document.getElementById("sidebar");
+    const sidebar = document.getElementById("sidebar");
 
-  const usernameEl = document.getElementById("username");
-  const branchEl = document.getElementById("branch");
-  const pfpEl = document.getElementById("dashboard-pfp");
+    const usernameEl = document.getElementById("username");
+    const branchEl = document.getElementById("branch");
+    const pfpEl = document.getElementById("dashboard-pfp");
 
-  const currentDateEl = document.getElementById("current-date");
-  const syllabusProgressEl = document.getElementById("syllabus-progress");
+    const currentDateEl = document.getElementById("current-date");
+    const syllabusProgressEl = document.getElementById("syllabus-progress");
 
-  /* ================= AUTH ================= */
+    const facultyList = document.getElementById("faculty-list");
 
-  onAuthStateChanged(auth, async (user) => {
+    // ================= AUTH =================
 
-    if (!user) {
+    onAuthStateChanged(auth, async (user) => {
 
-      window.location.href = "../PAGES/login.html";
-      return;
+        if (!user) {
+            window.location.href = "../PAGES/login.html";
+            return;
+        }
 
-    }
+        const userRef = doc(db, "users", user.uid);
+        const snap = await getDoc(userRef);
 
-    try{
+        if (snap.exists()) {
 
-      const userRef = doc(db, "users", user.uid);
-      const snap = await getDoc(userRef);
+            const data = snap.data();
 
-      if (snap.exists()) {
+            usernameEl.textContent = data.name || "User";
+            branchEl.textContent = data.branch || "Branch";
 
-        const data = snap.data();
+        } else {
 
-        usernameEl.textContent = data.name || "User";
-        branchEl.textContent = data.branch || "Branch";
+            usernameEl.textContent = "User";
+            branchEl.textContent = "Student";
 
-      } else {
+        }
 
-        usernameEl.textContent = "User";
-        branchEl.textContent = "";
+        const savedPfp = localStorage.getItem("skadPfp");
 
-      }
-
-    }catch(error){
-
-      console.error(error);
-
-    }
-
-    const savedPfp = localStorage.getItem("skadPfp");
-
-    if(savedPfp){
-
-      pfpEl.src = savedPfp;
-
-    }
-
-  });
-
-  /* ================= LOGOUT ================= */
-
-  document.getElementById("logout-btn").onclick = () => {
-
-    signOut(auth).then(() => {
-
-      localStorage.removeItem("skadUser");
-      localStorage.removeItem("skadPfp");
-
-      window.location.replace("../PAGES/login.html");
+        if (savedPfp) {
+            pfpEl.src = savedPfp;
+        }
 
     });
 
-  };
+    // ================= LOGOUT =================
 
-  /* ================= MOBILE SIDEBAR ================= */
+    const logoutBtn = document.getElementById("logout-btn");
 
-  const menuToggle = document.getElementById("menu-toggle");
+    if (logoutBtn) {
 
-  menuToggle.onclick = () => {
+        logoutBtn.addEventListener("click", async () => {
 
-    if(window.innerWidth <= 768){
+            await signOut(auth);
 
-      sidebar.classList.toggle("active");
+            localStorage.removeItem("skadUser");
+            localStorage.removeItem("skadPfp");
 
-    }else{
+            window.location.href = "../PAGES/login.html";
 
-      sidebar.classList.toggle("collapsed");
+        });
 
     }
 
-  };
+    // ================= SIDEBAR =================
 
-  document.querySelectorAll(".sidebar-menu a").forEach(link=>{
+    const menuToggle = document.getElementById("menu-toggle");
 
-    link.addEventListener("click",()=>{
+    menuToggle.addEventListener("click", () => {
 
-      if(window.innerWidth<=768){
+        if (window.innerWidth <= 768) {
 
-        sidebar.classList.remove("active");
+            sidebar.classList.toggle("active");
 
-      }
+        } else {
+
+            sidebar.classList.toggle("collapsed");
+
+        }
 
     });
 
-  });
+    document.querySelectorAll(".sidebar-menu a").forEach(link => {
 
-  document.addEventListener("click",(e)=>{
+        link.addEventListener("click", () => {
 
-    if(window.innerWidth<=768){
+            if (window.innerWidth <= 768) {
 
-      if(
-        !sidebar.contains(e.target) &&
-        !menuToggle.contains(e.target)
-      ){
+                sidebar.classList.remove("active");
 
-        sidebar.classList.remove("active");
+            }
 
-      }
+        });
 
-    }
+    });
 
-  });
+    window.addEventListener("resize", () => {
 
-  window.addEventListener("resize",()=>{
+        if (window.innerWidth > 768) {
 
-    if(window.innerWidth>768){
+            sidebar.classList.remove("active");
 
-      sidebar.classList.remove("active");
+        }
 
-    }
+    });
 
-  });
+    // ================= DARK MODE =================
 
-  /* ================= DARK MODE ================= */
+    const modeToggle = document.getElementById("mode-toggle");
 
-  const modeToggle = document.getElementById("mode-toggle");
+    if (localStorage.getItem("theme") === "dark") {
 
-  if(localStorage.getItem("theme")==="dark"){
-
-    document.body.classList.add("dark-mode");
-    modeToggle.textContent="☀️";
-
-  }
-
-  modeToggle.onclick=()=>{
-
-    document.body.classList.toggle("dark-mode");
-
-    const dark=document.body.classList.contains("dark-mode");
-
-    localStorage.setItem("theme",dark?"dark":"light");
-
-    modeToggle.textContent=dark?"☀️":"🌙";
-
-  };
-
-  /* ================= DATE ================= */
-
-  const today=new Date();
-
-  currentDateEl.textContent=today.toLocaleDateString("en-US",{
-
-    month:"short",
-    day:"numeric"
-
-  });
-
-  /* ================= SYLLABUS ================= */
-
-  syllabusProgressEl.textContent="0%";
-
-  /* ================= AI ================= */
-
-  const aiInput=document.getElementById("ai-input");
-  const aiOutput=document.getElementById("ai-output");
-  const aiSend=document.getElementById("ai-send");
-
-  function sendMessage(){
-
-    const message=aiInput.value.trim();
-
-    if(!message) return;
-
-    aiOutput.innerHTML += `
-      <div class="user-message">${message}</div>
-    `;
-
-    const reply=getResponse(message);
-
-    aiOutput.innerHTML += `
-      <div class="bot-message">${reply}</div>
-    `;
-
-    aiInput.value="";
-
-    aiOutput.scrollTop=aiOutput.scrollHeight;
-
-  }
-
-  aiSend.onclick=sendMessage;
-
-  aiInput.addEventListener("keypress",(e)=>{
-
-    if(e.key==="Enter"){
-
-      sendMessage();
+        document.body.classList.add("dark-mode");
+        modeToggle.textContent = "☀️";
 
     }
 
-  });
+    modeToggle.addEventListener("click", () => {
+
+        document.body.classList.toggle("dark-mode");
+
+        const dark = document.body.classList.contains("dark-mode");
+
+        localStorage.setItem("theme", dark ? "dark" : "light");
+
+        modeToggle.textContent = dark ? "☀️" : "🌙";
+
+    });
+
+    // ================= DATE =================
+
+    const today = new Date();
+
+    currentDateEl.textContent = today.toLocaleDateString("en-US", {
+
+        month: "short",
+        day: "numeric"
+
+    });
+
+    // ================= SYLLABUS =================
+
+    syllabusProgressEl.textContent = "0%";
+
+    // ================= FACULTY =================
+
+    const facultyList = document.getElementById("faculty-list");
+
+facultyList.innerHTML = `
+
+<a href="../PAGES/faculty/index.html" class="card faculty-card">
+<img src="../assets/faculty/ak-maravi.jpeg">
+<p>AK Maravi</p>
+</a>
+
+<a href="../PAGES/faculty/index.html" class="card faculty-card">
+<img src="../assets/faculty/jyoti hanwat.jpeg">
+<p>Jyoti Hanwat</p>
+</a>
+
+<a href="../PAGES/faculty/index.html" class="card faculty-card">
+<img src="../assets/faculty/manisha.jpeg">
+<p>Manisha</p>
+</a>
+
+`;
+
+    facultyList.innerHTML = "";
+
+    faculty.forEach(f => {
+
+        facultyList.innerHTML += `
+
+        <a href="../PAGES/faculty/index.html" class="faculty-card">
+
+            <img src="${f.image}" alt="${f.name}">
+
+            <p>${f.name}</p>
+
+        </a>
+
+        `;
+
+    });
+
+    // ================= AI =================
+
+    const aiSend = document.getElementById("ai-send");
+
+    if (aiSend) {
+
+        aiSend.addEventListener("click", () => {
+
+            alert("NYX will be connected here soon.");
+
+        });
+
+    }
 
 });
