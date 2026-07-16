@@ -1,4 +1,5 @@
-// ================= FIREBASE IMPORTS =================
+// ================= FIREBASE =================
+
 import { auth, db } from "../JS/firebase.js";
 
 import {
@@ -12,221 +13,297 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
 
-// ================= TEST =================
-console.log("PROFILE UI ACTIVE 🚀");
-
-
 // ================= USER DATA =================
+
 let userData = {};
 
 
-// ================= LOAD FROM FIREBASE =================
+// ================= ELEMENTS =================
+
+const profilePfp = document.getElementById("profile-pfp");
+const sidebarPfp = document.getElementById("sidebar-pfp");
+
+const pfpInput = document.getElementById("pfpInput");
+const uploadBtn = document.getElementById("uploadPfpBtn");
+
+const modal = document.getElementById("editModal");
+
+
+// ================= AUTH =================
+
 onAuthStateChanged(auth, async (user) => {
-    if (!user) return;
+
+    if (!user) {
+
+        window.location.href = "../PAGES/login.html";
+        return;
+
+    }
 
     const userRef = doc(db, "users", user.uid);
+
     const snap = await getDoc(userRef);
 
     if (snap.exists()) {
+
         userData = snap.data();
-    } else {
+
+    }
+
+    else {
+
         userData = {
-            name: "User Name",
+
+            name: "User",
+
             role: "Student",
-            branch: "CS",
-            sem: "Sem 1",
+
+            branch: "Computer Science",
+
+            sem: "Semester 2",
+
             medium: "English",
-            email: user.email,
-            notes: 0,
-            downloads: 0
+
+            email: user.email
+
         };
 
         await setDoc(userRef, userData);
+
     }
 
     loadUI();
 
-    // 🔥 ALSO LOAD PFP AFTER AUTH
-    loadPfp();
+    loadProfilePicture();
+
 });
 
 
 // ================= LOAD UI =================
+
 function loadUI() {
+
     setText("profile-name", userData.name);
+
     setText("profile-role", userData.role);
+
     setText("profile-branch", userData.branch);
+
     setText("profile-sem", userData.sem);
+
     setText("profile-medium", userData.medium);
 
+
     setText("sidebar-name", userData.name);
+
     setText("sidebar-role", userData.role);
 
-    setText("notes-count", userData.notes);
-    setText("downloads-count", userData.downloads);
+
+    setText("info-branch", userData.branch);
+
+    setText("info-sem", userData.sem);
+
+    setText("info-medium", userData.medium);
+
+    setText("info-role", userData.role);
+
 
     setText("user-email", userData.email);
+
 }
 
 
-// ================= PROFILE PICTURE =================
-const pfp = document.getElementById("profile-pfp");
-const sidebarPfp = document.getElementById("sidebar-pfp");
-const pfpInput = document.getElementById("pfpInput");
-const uploadBtn = document.getElementById("uploadPfpBtn");
+// ================= PROFILE PHOTO =================
 
-// 🔥 LOAD PFP FUNCTION (USED MULTIPLE TIMES)
-function loadPfp() {
-    const savedPfp = localStorage.getItem("skadPfp");
+function loadProfilePicture(){
 
-    if (savedPfp) {
-        if (pfp) pfp.src = savedPfp;
-        if (sidebarPfp) sidebarPfp.src = savedPfp;
+    const saved = localStorage.getItem("skadPfp");
+
+    if(saved){
+
+        profilePfp.src = saved;
+
+        sidebarPfp.src = saved;
+
     }
+
 }
 
-// open picker
-uploadBtn.onclick = () => pfpInput.click();
-pfp.onclick = () => pfpInput.click();
+uploadBtn.addEventListener("click",()=>{
 
-// upload
-pfpInput.addEventListener("change", () => {
-    const file = pfpInput.files[0];
-    if (!file) return;
+    pfpInput.click();
+
+});
+
+profilePfp.addEventListener("click",()=>{
+
+    pfpInput.click();
+
+});
+
+pfpInput.addEventListener("change",(event)=>{
+
+    const file = event.target.files[0];
+
+    if(!file) return;
 
     const reader = new FileReader();
 
-    reader.onload = function (e) {
-        const img = e.target.result;
+    reader.onload=function(e){
 
-        if (pfp) pfp.src = img;
-        if (sidebarPfp) sidebarPfp.src = img;
+        const image = e.target.result;
 
-        localStorage.setItem("skadPfp", img);
+        profilePfp.src = image;
+
+        sidebarPfp.src = image;
+
+        localStorage.setItem("skadPfp",image);
 
         showToast("Profile picture updated ✨");
+
     };
 
     reader.readAsDataURL(file);
+
 });
+// ================= EDIT PROFILE =================
 
+document.getElementById("editProfileBtn").addEventListener("click", openModal);
 
-// ================= TABS =================
-const tabs = document.querySelectorAll(".tab");
-const contents = document.querySelectorAll(".content-area");
+document.getElementById("editBtn").addEventListener("click", openModal);
 
-tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-        tabs.forEach(t => t.classList.remove("active"));
-        contents.forEach(c => c.classList.add("hidden"));
-
-        tab.classList.add("active");
-        document.getElementById(tab.dataset.tab).classList.remove("hidden");
-    });
-});
-
-
-// ================= MODAL =================
-const modal = document.getElementById("editModal");
-
-document.getElementById("editProfileBtn").onclick = openModal;
-document.getElementById("editBtn").onclick = openModal;
-document.getElementById("closeModalBtn").onclick = closeModal;
+document.getElementById("closeModalBtn").addEventListener("click", closeModal);
 
 function openModal() {
+
     modal.classList.remove("hidden");
 
     document.getElementById("edit-name").value = userData.name || "";
+
     document.getElementById("edit-role").value = userData.role || "";
+
     document.getElementById("edit-branch").value = userData.branch || "";
+
     document.getElementById("edit-sem").value = userData.sem || "";
+
     document.getElementById("edit-medium").value = userData.medium || "";
+
 }
 
 function closeModal() {
+
     modal.classList.add("hidden");
+
 }
 
 
 // ================= SAVE PROFILE =================
+
 document.getElementById("saveProfileBtn").addEventListener("click", async () => {
 
     const user = auth.currentUser;
+
     if (!user) return;
 
-    try {
-        userData.name = getValue("edit-name");
-        userData.role = getValue("edit-role");
-        userData.branch = getValue("edit-branch");
-        userData.sem = getValue("edit-sem");
-        userData.medium = getValue("edit-medium");
+    userData.name = getValue("edit-name");
 
-        const userRef = doc(db, "users", user.uid);
+    userData.role = getValue("edit-role");
 
-        await setDoc(userRef, userData, { merge: true });
+    userData.branch = getValue("edit-branch");
 
-        loadUI();
-        closeModal();
+    userData.sem = getValue("edit-sem");
 
-        showToast("Profile updated 🚀");
+    userData.medium = getValue("edit-medium");
 
-    } catch (err) {
-        console.error(err);
-        showToast("Error saving profile ❌");
-    }
+    const userRef = doc(db, "users", user.uid);
+
+    await setDoc(userRef, userData, {
+
+        merge: true
+
+    });
+
+    loadUI();
+
+    closeModal();
+
+    showToast("Profile updated successfully 🚀");
+
 });
 
 
-// ================= PASSWORD =================
-document.getElementById("changePasswordBtn").onclick = () => {
-    showToast("Firebase feature coming soon 😏");
-};
+// ================= ACCOUNT SETTINGS =================
 
+document.getElementById("changePasswordBtn").addEventListener("click", () => {
 
-// ================= DELETE =================
-document.getElementById("deleteAccountBtn").onclick = () => {
+    showToast("Password reset feature coming soon 🔐");
+
+});
+
+document.getElementById("deleteAccountBtn").addEventListener("click", () => {
+
     const confirmDelete = confirm("Delete your profile?");
+
     if (!confirmDelete) return;
 
-    localStorage.removeItem("skadUser");
     localStorage.removeItem("skadPfp");
 
-    showToast("Profile deleted ❌");
+    localStorage.removeItem("skadUser");
 
-    setTimeout(() => location.reload(), 1000);
-};
+    showToast("Profile deleted");
+
+    setTimeout(() => {
+
+        location.reload();
+
+    }, 1500);
+
+});
 
 
 // ================= TOAST =================
+
 function showToast(message) {
+
     const toast = document.getElementById("toast");
+
     const msg = document.getElementById("toast-msg");
 
     msg.textContent = message;
 
-    // reset first (prevents stacking bug)
     toast.classList.remove("show");
 
-    // force reflow
     void toast.offsetWidth;
 
-    // show
     toast.classList.add("show");
 
-    // auto hide
     setTimeout(() => {
-        toast.classList.remove("show");
-    }, 2500);
-}
 
+        toast.classList.remove("show");
+
+    }, 2500);
+
+}
 
 
 // ================= HELPERS =================
+
 function setText(id, value) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = value || "";
+
+    const element = document.getElementById(id);
+
+    if (element) {
+
+        element.textContent = value || "";
+
+    }
+
 }
 
 function getValue(id) {
-    return document.getElementById(id).value;
+
+    const element = document.getElementById(id);
+
+    return element ? element.value : "";
+
 }

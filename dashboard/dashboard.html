@@ -20,7 +20,7 @@
 
     <div class="nav-left">
 
-        <button id="menu-toggle">
+        <button id="menu-toggle" type="button">
 
             <span></span>
             <span></span>
@@ -48,11 +48,11 @@
 
     <div class="nav-right">
 
-        <button id="mode-toggle">
+        <button id="mode-toggle" type="button" title="Dark Mode">
             🌙
         </button>
 
-        <button id="logout-btn">
+        <button id="logout-btn" type="button">
             Logout
         </button>
 
@@ -107,7 +107,7 @@
             Tools
         </a>
 
-        <a href="../PAGES/faculty/index.html">
+        <a href="../PAGES/faculty/faculty-profile.html">
             Faculty
         </a>
 
@@ -195,28 +195,29 @@
 
             <div class="ai-placeholder">
 
-                <h4>
-                    Hello 👋
-                </h4>
+                <h4>Hello 👋</h4>
 
                 <p>
-                    Ask me anything about SKAD, faculty, semesters,
-                    subjects or resources.
+                    Ask me anything about SKAD, faculty,
+                    semesters, subjects or resources.
                 </p>
 
             </div>
 
         </div>
-
-        <div class="ai-input">
+                <div class="ai-input">
 
             <input
                 type="text"
                 id="dashboard-ai-input"
                 placeholder="Ask NYX..."
+                autocomplete="off"
             >
 
-            <button id="ai-send">
+            <button
+                id="ai-send"
+                type="button"
+            >
                 Send
             </button>
 
@@ -281,8 +282,9 @@
         </h2>
 
         <a
-            href="../PAGES/faculty/index.html"
+            href="../PAGES/faculty/faculty-profile.html"
             class="see-more-btn"
+            title="View All Faculty"
         >
             →
         </a>
@@ -294,9 +296,17 @@
         id="faculty-list"
     >
 
-        <!-- dashboard.js inserts faculty cards -->
+        <!-- Faculty cards are inserted by dashboard.js -->
 
     </div>
+
+    <p
+        class="empty-text"
+        id="faculty-empty"
+        style="display:none;"
+    >
+        No faculty available.
+    </p>
 
 </section>
 </main>

@@ -317,3 +317,509 @@ button:hover {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
+/* ================= ROLE ================= */
+
+.role{
+
+    display:inline-block;
+
+    background:var(--accent);
+
+    color:white;
+
+    padding:6px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    margin-bottom:14px;
+
+}
+
+/* ================= META ================= */
+
+.meta{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:15px;
+
+}
+
+.meta span{
+
+    background:#e8f1ff;
+
+    color:var(--accent);
+
+    padding:8px 14px;
+
+    border-radius:12px;
+
+    font-size:13px;
+
+    font-weight:500;
+
+}
+
+/* ================= BUTTONS ================= */
+
+button{
+
+    padding:11px 18px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--accent);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+button:hover{
+
+    background:var(--accent-light);
+
+    transform:translateY(-2px);
+
+}
+
+.danger{
+
+    background:var(--danger);
+
+}
+
+.danger:hover{
+
+    background:#dc2626;
+
+}
+
+/* ================= INFO SECTION ================= */
+
+.middle-section{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:25px;
+
+    margin-bottom:30px;
+
+}
+
+.info-card,
+.account{
+
+    background:var(--card);
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+
+}
+
+.info-card h2,
+.account h2{
+
+    margin-bottom:20px;
+
+    font-size:22px;
+
+}
+
+/* ================= INFO ROW ================= */
+
+.info-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.info-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding-bottom:12px;
+
+    border-bottom:1px solid #edf2f7;
+
+}
+
+.info-row:last-child{
+
+    border:none;
+
+}
+
+.info-row span{
+
+    color:var(--muted);
+
+    font-size:15px;
+
+}
+
+.info-row strong{
+
+    color:var(--text);
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+/* ================= ACCOUNT ================= */
+
+.account{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.account button{
+
+    width:100%;
+
+    margin-top:12px;
+
+}
+
+/* ================= QUICK ACCESS ================= */
+
+.quick-access{
+
+    background:var(--card);
+
+    padding:25px;
+
+    border-radius:20px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+
+}
+
+.quick-access h2{
+
+    margin-bottom:20px;
+
+}
+
+.quick-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+
+    gap:18px;
+
+}
+
+.quick-card{
+
+    background:linear-gradient(135deg,#0f172a,#2563eb);
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:16px;
+
+    padding:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:12px;
+
+    font-size:28px;
+
+    transition:.25s;
+
+}
+
+.quick-card span{
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+.quick-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
+
+}
+/* ================= MODAL ================= */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:1000;
+
+}
+
+.modal-content{
+
+    width:360px;
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:28px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+
+}
+
+.modal-content h2{
+
+    margin-bottom:18px;
+
+    text-align:center;
+
+}
+
+.modal-content input,
+.modal-content select{
+
+    width:100%;
+
+    padding:12px;
+
+    margin-bottom:14px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:10px;
+
+    outline:none;
+
+    transition:.25s;
+
+}
+
+.modal-content input:focus,
+.modal-content select:focus{
+
+    border-color:var(--accent);
+
+    box-shadow:0 0 10px rgba(37,99,235,.2);
+
+}
+
+.modal-actions{
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+.modal-actions button{
+
+    flex:1;
+
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+
+    position:fixed;
+
+    top:25px;
+
+    left:50%;
+
+    transform:translateX(-50%) translateY(-20px);
+
+    background:#0f172a;
+
+    color:white;
+
+    padding:14px 28px;
+
+    border-radius:12px;
+
+    box-shadow:0 8px 25px rgba(37,99,235,.35);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.35s;
+
+    z-index:9999;
+
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:translateX(-50%) translateY(0);
+
+}
+
+/* ================= UTILITIES ================= */
+
+.hidden{
+
+    display:none;
+
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+    body{
+
+        flex-direction:column;
+
+    }
+
+    .sidebar{
+
+        width:100%;
+
+        height:auto;
+
+        padding:20px;
+
+    }
+
+    .profile-container{
+
+        padding:18px;
+
+    }
+
+    .identity{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .meta{
+
+        justify-content:center;
+
+    }
+
+    .middle-section{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .quick-grid{
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .identity{
+
+        padding:22px;
+
+    }
+
+    .pfp{
+
+        width:110px;
+
+        height:110px;
+
+    }
+
+    .identity-right h1{
+
+        font-size:28px;
+
+    }
+
+    .quick-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .modal-content{
+
+        width:92%;
+
+        padding:22px;
+
+    }
+
+    .sidebar nav{
+
+        gap:6px;
+
+    }
+
+    .sidebar nav a{
+
+        padding:10px;
+
+    }
+
+}
