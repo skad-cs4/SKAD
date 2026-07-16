@@ -170,6 +170,22 @@ body {
     padding: 10px;
     display: none;
 }
+.hidden{
+    display: none;
+}
+.modal{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.65);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.hidden{
+    display:none;
+}
 
 </style>
 </head>
@@ -181,7 +197,7 @@ body {
 <div class="grid" id="items"></div>
 
 <!-- MODAL -->
-<div class="modal" id="modal">
+<div id="buyModal" class="modal hidden">
     <div class="modal-box">
 
         <h3>Buyer Details</h3>
@@ -211,132 +227,6 @@ body {
 
 <div id="toast"></div>
 
-<script>
-
-const URL = "https://juhoiuurglcyarecqccd.supabase.co";
-const KEY = "sb_publishable_1OodfzUIF0amgWyqJxYbHQ_cCIYLaVj";
-
-let selectedItem = null;
-
-/* TOAST */
-function toast(msg){
-    const t = document.getElementById("toast");
-    t.innerText = msg;
-    t.style.display = "block";
-    setTimeout(()=>t.style.display="none",2000);
-}
-
-/* LOAD ITEMS */
-async function loadItems(){
-    try {
-        const res = await fetch(`${URL}/rest/v1/items?is_sold=eq.false`,{
-            headers:{
-                apikey:KEY,
-                Authorization:`Bearer ${KEY}`
-            }
-        });
-
-        const data = await res.json();
-        const container = document.getElementById("items");
-
-        container.innerHTML = "";
-
-        if(!data || data.length === 0){
-            container.innerHTML = "<p style='padding:20px;'>No items available</p>";
-            return;
-        }
-
-        data.forEach(item=>{
-            container.innerHTML += `
-            <div class="card">
-                <img src="${item.image}">
-                <div class="card-body">
-                    <h4>${item.title}</h4>
-                    <p class="price">₹${item.price}</p>
-                    <p>${item.branch}</p>
-                    <button class="btn" onclick="openModal(${item.id})">Buy</button>
-                </div>
-            </div>`;
-        });
-
-        window._itemsCache = data;
-
-    } catch (err){
-        console.error(err);
-        toast("Failed to load items ❌");
-    }
-}
-
-/* OPEN MODAL */
-function openModal(id){
-    selectedItem = window._itemsCache.find(i => i.id === id);
-    document.getElementById("modal").style.display = "flex";
-}
-
-/* CLOSE */
-function closeModal(){
-    document.getElementById("modal").style.display = "none";
-    buyerName.value = "";
-    buyerPhone.value = "";
-    buyerBranch.value = "";
-}
-
-/* CONFIRM BUY */
-async function confirmBuy(){
-
-    const name = buyerName.value;
-    const phone = buyerPhone.value;
-    const branch = buyerBranch.value;
-
-    if(!name || !phone){
-        toast("Fill required fields");
-        return;
-    }
-
-    try {
-
-        await fetch(`${URL}/rest/v1/orders`,{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-                apikey:KEY,
-                Authorization:`Bearer ${KEY}`
-            },
-            body: JSON.stringify({
-                item_id: selectedItem.id,
-                item_name: selectedItem.title,
-                price: selectedItem.price,
-                seller_phone: selectedItem.phone,
-                buyer_name: name,
-                buyer_phone: phone,
-                buyer_branch: branch
-            })
-        });
-
-        await fetch(`${URL}/rest/v1/items?id=eq.${selectedItem.id}`,{
-            method:"PATCH",
-            headers:{
-                "Content-Type":"application/json",
-                apikey:KEY,
-                Authorization:`Bearer ${KEY}`
-            },
-            body: JSON.stringify({ is_sold:true })
-        });
-
-        toast("Order placed ✅");
-        closeModal();
-        loadItems();
-
-    } catch (err){
-        console.error(err);
-        toast("Error ❌");
-    }
-}
-
-/* INIT */
-loadItems();
-
-</script>
-
+<script src="../../JS/marketplace.js"></script>
 </body>
 </html>
