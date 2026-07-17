@@ -7,7 +7,7 @@
   {
     "semester": 1,
     "subject": "Engineering Graphics",
-    "teacher": "Ram"
+    "teacher": "Ram Saket sir"
   },
   {
     "semester": 1,
@@ -27,7 +27,7 @@
   {
     "semester": 1,
     "subject": "Physics",
-    "teacher": "Tiwari"
+    "teacher": "nivedita mam"
   },
 
   {
@@ -38,7 +38,7 @@
   {
     "semester": 2,
     "subject": "Physics II",
-    "teacher": "Tiwari"
+    "teacher": "nivedita mam"
   },
   {
     "semester": 2,
@@ -48,7 +48,7 @@
   {
     "semester": 2,
     "subject": "Mechanics",
-    "teacher": "Dubey"
+    "teacher": " RK Dubey"
   },
   {
     "semester": 2,
@@ -69,12 +69,12 @@
   {
     "semester": 3,
     "subject": "Data Structure",
-    "teacher": "Manisha"
+    "teacher": "Manisha Jaiswal mam"
   },
   {
     "semester": 3,
     "subject": "Algorithm",
-    "teacher": "Korov"
+    "teacher": "RK Kourav"
   },
   {
     "semester": 3,
@@ -84,7 +84,7 @@
   {
     "semester": 3,
     "subject": "Personality Development",
-    "teacher": "Vickky Patil"
+    "teacher": "Vicky Patil"
   },
 
   {
@@ -95,12 +95,12 @@
   {
     "semester": 4,
     "subject": "Computer Networking",
-    "teacher": "Korov"
+    "teacher": "RK Kourav"
   },
   {
     "semester": 4,
     "subject": "Introduction to DBMS",
-    "teacher": "Vickky Patil"
+    "teacher": "Vicky Patil"
   },
   {
     "semester": 4,
@@ -110,7 +110,7 @@
   {
     "semester": 4,
     "subject": "Web Technologies",
-    "teacher": "Manisha"
+    "teacher": "Manisha Jaiswal mam"
   },
 
   {
